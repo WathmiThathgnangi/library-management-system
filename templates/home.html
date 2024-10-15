@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,69 +8,88 @@
     <title>Course Management System</title>
     <link rel="stylesheet" href="../static/css/styles.css">
 </head>
+
 <body>
-    <!-- Header Section -->
+    <!-- Navigation bar -->
     <header>
         <div class="container">
-            <h1>Course Management System</h1>
+            <h1 class="logo">Course Management System</h1>
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#courses">Courses</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="#about">About Us</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="login.html">Log in</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="hero">
-        <div class="container">
+    <!-- Hero section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
             <h2>Welcome to the Course Management System</h2>
-            <p>Manage and access your courses easily. Explore available courses and track your progress.</p>
-            <a href="#courses" class="btn">Browse Courses</a>
+            <p>Manage and track your courses with ease. Find your next learning opportunity today!</p>
+            <a href="courses.html" class="btn-primary">View Courses</a>
         </div>
     </section>
 
-    <!-- Courses Section -->
-    <section id="courses">
+    <!-- Courses section -->
+    <section id="courses" class="courses">
         <div class="container">
             <h2>Popular Courses</h2>
             <div class="course-grid">
                 <div class="course-card">
-                    <h3>Course 1</h3>
-                    <p>Learn the basics of web development. HTML, CSS, and JavaScript.</p>
-                    <a href="#" class="btn">View Course</a>
+                    <img src="../static/images/python_vs_javascript.avif" alt="Course 1">
+                    <div class="course-info">
+                        <h3>Introduction to Programming</h3>
+                        <p>Learn the basics of programming with Python and JavaScript.</p>
+                        <a href="#" class="btn-secondary">Enroll Now</a>
+                    </div>
                 </div>
+
                 <div class="course-card">
-                    <h3>Course 2</h3>
-                    <p>Understand the fundamentals of machine learning and AI.</p>
-                    <a href="#" class="btn">View Course</a>
+                    <img src="../static/images/images.jpeg" alt="Course 2">
+                    <div class="course-info">
+                        <h3>Web Development</h3>
+                        <p>Build responsive websites using HTML, CSS, and JavaScript.</p>
+                        <a href="#" class="btn-secondary">Enroll Now</a>
+                    </div>
                 </div>
+
                 <div class="course-card">
-                    <h3>Course 3</h3>
-                    <p>Get a deep dive into mobile app development for Android and iOS.</p>
-                    <a href="#" class="btn">View Course</a>
+                    <img src="../static/images/data science.jpeg" alt="Course 3">
+                    <div class="course-info">
+                        <h3>Data Science with Python</h3>
+                        <p>Explore data analysis, visualization, and machine learning.</p>
+                        <a href="#" class="btn-secondary">Enroll Now</a>
+                    </div>
                 </div>
+
                 <div class="course-card">
-                    <h3>Course 4</h3>
-                    <p>Master data science techniques and big data analytics.</p>
-                    <a href="#" class="btn">View Course</a>
+                    <img src="../static/images/2024-Digital-Marketing-Strategy-Guide.webp" alt="Course 4">
+                    <div class="course-info">
+                        <h3>Digital Marketing</h3>
+                        <p>Master the strategies and tools to excel in digital marketing.</p>
+                        <a href="#" class="btn-secondary">Enroll Now</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer Section -->
-    <footer>
+    <!-- Footer -->
+    <footer id="contact">
         <div class="container">
             <p>&copy; 2024 Course Management System. All rights reserved.</p>
-            <ul>
-                <li><a href="#privacy">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
+            <ul class="social-icons">
+                <li><a href="#"><img src="../static/images/WhatsApp.svg.webp" alt="WhatsApp"></a></li>
+                <li><a href="#"><img src="../static/images/insta.jpeg" alt="Instagram"></a></li>
+                <li><a href="#"><img src="../static/images/images.png" alt="LinkedIn"></a></li>
             </ul>
         </div>
     </footer>
 </body>
+
 </html>
