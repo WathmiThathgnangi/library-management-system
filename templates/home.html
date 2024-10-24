@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Course Management System</title>
+    <title>Library</title>
     <link rel="stylesheet" href="../static/css/styles.css">
 </head>
 
@@ -13,14 +13,12 @@
     <!-- Navigation bar -->
     <header>
         <div class="container">
-            <h1 class="logo">Course Management System</h1>
+            <h1 class="logo">Digital Library</h1>
             <nav>
                 <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="login.html">Log in</a></li>
+                    <li><a href="{{url_for('home')}}">Home</a></li>
+                    <li><a href="{{url_for('library')}}">Library</a></li>
+                    <li><a href="{{url_for('logout')}}">Log Out</a></li>
                 </ul>
             </nav>
         </div>
@@ -29,52 +27,34 @@
     <!-- Hero section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h2>Welcome to the Course Management System</h2>
-            <p>Manage and track your courses with ease. Find your next learning opportunity today!</p>
-            <a href="courses.html" class="btn-primary">View Courses</a>
+            <h2>Hi {{email}}, Welcome to the Digital Library</h2>
+            <p>Manage and track your books with ease. Find your next learning opportunity today!</p>
+            <a href="{{url_for('library')}}" class="btn-primary">View Books</a>
         </div>
     </section>
 
-    <!-- Courses section -->
-    <section id="courses" class="courses">
-        <div class="container">
-            <h2>Popular Courses</h2>
-            <div class="course-grid">
-                <div class="course-card">
-                    <img src="../static/images/python_vs_javascript.avif" alt="Course 1">
-                    <div class="course-info">
-                        <h3>Introduction to Programming</h3>
-                        <p>Learn the basics of programming with Python and JavaScript.</p>
-                        <a href="#" class="btn-secondary">Enroll Now</a>
-                    </div>
-                </div>
+    <!-- Upload Section -->
+    <section class="upload-section">
+        <div class="upload-container">
+            <h2>Upload Your Books</h2>
+            <p>Share your knowledge with others by uploading your favorite books in PDF format. This feature allows you to manage your library and make resources available to fellow readers.</p>
+            <p>Please ensure that your documents are in PDF format and follow our content guidelines. Your contributions will help enrich our digital library.</p>
 
-                <div class="course-card">
-                    <img src="../static/images/images.jpeg" alt="Course 2">
-                    <div class="course-info">
-                        <h3>Web Development</h3>
-                        <p>Build responsive websites using HTML, CSS, and JavaScript.</p>
-                        <a href="#" class="btn-secondary">Enroll Now</a>
-                    </div>
-                </div>
+            <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" class="upload-form">
+                <label for="file-upload" id="file-upload-label" class="custom-file-upload">
+                    Choose Document
+                </label>
+                <input type="file" id="file-upload" name="pdf_file" accept="application/pdf" onchange="showFileName()" />
+                <input type="submit" value="Upload Book" class="btn-upload">
+            </form>
 
-                <div class="course-card">
-                    <img src="../static/images/data science.jpeg" alt="Course 3">
-                    <div class="course-info">
-                        <h3>Data Science with Python</h3>
-                        <p>Explore data analysis, visualization, and machine learning.</p>
-                        <a href="#" class="btn-secondary">Enroll Now</a>
-                    </div>
-                </div>
-
-                <div class="course-card">
-                    <img src="../static/images/2024-Digital-Marketing-Strategy-Guide.webp" alt="Course 4">
-                    <div class="course-info">
-                        <h3>Digital Marketing</h3>
-                        <p>Master the strategies and tools to excel in digital marketing.</p>
-                        <a href="#" class="btn-secondary">Enroll Now</a>
-                    </div>
-                </div>
+            <div class="upload-tips">
+                <h3>Tips for Uploading</h3>
+                <ul>
+                    <li>Ensure the PDF file is less than 10MB.</li>
+                    <li>Provide a clear and informative file name.</li>
+                    <li>Upload only materials that you have rights to share.</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -82,14 +62,16 @@
     <!-- Footer -->
     <footer id="contact">
         <div class="container">
-            <p>&copy; 2024 Course Management System. All rights reserved.</p>
-            <ul class="social-icons">
-                <li><a href="#"><img src="../static/images/WhatsApp.svg.webp" alt="WhatsApp"></a></li>
-                <li><a href="#"><img src="../static/images/insta.jpeg" alt="Instagram"></a></li>
-                <li><a href="#"><img src="../static/images/images.png" alt="LinkedIn"></a></li>
-            </ul>
+            <p>&copy; 2024 Library Management System</p>
         </div>
     </footer>
 </body>
 
+<script>
+    function showFileName() {
+        var input = document.getElementById('file-upload');
+        var label = document.getElementById('file-upload-label');
+        label.innerHTML = input.files[0].name; // Update label with selected file name
+    }
+</script>
 </html>

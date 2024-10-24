@@ -3,55 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Course Management System</title>
-    <link rel="stylesheet" href="../static/css/register.css">
+    <title>CMS Register</title>
+    <link rel="stylesheet" href="../static/css/login-register.css">
 </head>
 <body>
-
-    <!-- Header Section -->
     <header>
         <div class="container">
-            <h1>Course Management System</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
-                </ul>
-            </nav>
+            <h1>Library Management System</h1>
         </div>
     </header>
 
-    <!-- Register Section -->
-    <section class="register-section">
-        <div class="container">
-            <h2>Create an Account</h2>
+    <!-- Login Form Section -->
+    <section class="login-section">
+        <div class="login-container">
+            <h2>Register Account</h2>
+
             <form action="/register" method="POST">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
 
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                </div>  
 
                 <button type="submit" class="btn-primary">Register</button>
             </form>
-            <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+
+            <div class="register-link">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+            </div>
         </div>
     </section>
 
-    <!-- Footer Section -->
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Course Management System. All Rights Reserved.</p>
-        </div>
+        <p>&copy; 2024 Library Management System</p>
     </footer>
-
 </body>
 </html>

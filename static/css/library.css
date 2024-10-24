@@ -1,0 +1,154 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Header (Unchanged) */
+header {
+    background: #fff;
+    padding: 18px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    color: #000;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li {
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    font-weight: 600;
+    color: hsl(190, 64%, 18%);
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #f8c037;
+}
+
+/* Files Section */
+.files-section {
+    background-color: #fff;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.files-section h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* File List */
+.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-item {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.file-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* File Link Styling */
+.file-link {
+    text-decoration: none;
+    color: #008CBA;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.file-link i {
+    margin-right: 15px;
+    font-size: 24px;
+    color: #d9534f;
+}
+
+.file-link:hover {
+    text-decoration: underline;
+    color: #005f75;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Intro Section */
+.intro-section {
+    background-color: #e7f3fe;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto 40px;
+    text-align: center;
+}
+
+.intro-section h2 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.intro-section p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+}

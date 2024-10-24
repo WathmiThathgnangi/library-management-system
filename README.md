@@ -1,2 +1,2 @@
-# course-management-system
-This is my course management system
+# library-management-system
+This is my library management system

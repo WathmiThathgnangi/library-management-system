@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Course Management System</title>
-    <link rel="stylesheet" href="../static/css/login-style.css">
+    <title>LMS Login</title>
+    <link rel="stylesheet" href="../static/css/login-register.css">
 </head>
 <body>
-
     <!-- Header Section -->
     <header>
         <div class="container">
-            <h1>Course Management System</h1>
+            <h1>Library Management System</h1>
         </div>
     </header>
 
@@ -20,10 +19,10 @@
         <div class="login-container">
             <h2>Login to Your Account</h2>
 
-            <form action="#" method="POST">
+            <form action="/login" method="POST">
                 <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 </div>
 
                 <div class="input-group">
@@ -31,13 +30,13 @@
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
                 </div>
 
+                {% if error %}
+                <p style="color: red; margin-bottom: 15px; margin-top: 15px;">{{error}}</p>
+                {% endif %}
+
                 <a href="{{ url_for('home') }}">
-                    <button type="button" class="btn-primary">Login</button>
+                    <button type="submit" class="btn-primary" value="Login">Login</button>
                 </a>
-                
-                <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                </div>
             </form>
 
             <div class="register-link">
@@ -47,8 +46,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2024 Course Management System</p>
+        <p>&copy; 2024 Library Management System</p>
     </footer>
-
 </body>
 </html>

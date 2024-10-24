@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+    <link rel="stylesheet" href="../static/css/library.css">
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <header>
+        <div class="container">
+            <h1 class="logo">Digital Library</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{url_for('home')}}">Home</a></li>
+                    <li><a href="{{url_for('library')}}">library</a></li>
+                    <li><a href="{{url_for('logout')}}">Log Out</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="intro" class="intro-section">
+        <h2>Welcome to Our Library</h2>
+        <p>Discover a world of knowledge with our extensive collection of resources. Whether you're looking for academic materials, leisure reading, or professional development, our library has something for everyone. Browse our available books below and enrich your learning experience.</p>
+    </section>
+
+    <section id="available-files" class="files-section">
+        <h2>Available Books</h2>
+        <ul class="file-list">
+            {% for file in files %}
+            <li class="file-item">
+                <a href="{{ url_for('download_file', file_id=file['id']) }}" class="file-link">
+                    <i class="fas fa-file-pdf"></i>
+                    {{ file['filename'].replace('.pdf', '') }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 Library Management System</p>
+        </div>
+    </footer>
+</body>
+
+</html>
