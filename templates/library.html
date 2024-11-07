@@ -35,6 +35,7 @@
             {% for file in files %}
             <li class="file-item">
                 <a href="{{ url_for('download_file', file_id=file['id']) }}" class="file-link">
+                    <img src="{{ url_for('cover_photo', file_id=file['id']) }}" alt="Cover Photo" class="cover-photo" />
                     <i class="fas fa-file-pdf"></i>
                     {{ file['filename'].replace('.pdf', '') }}
                 </a>

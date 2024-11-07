@@ -151,6 +151,10 @@ header nav ul li a:hover {
     display: none; 
 }
 
+#cover-upload {
+    display: none; 
+}
+
 .btn-upload {
     background-color: #008CBA;
     color: white;
@@ -260,4 +264,31 @@ footer {
 
 .btn-upload:hover {
     background-color: #005f75; 
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 60px; /* Adjust as needed */
+    right: 20px; /* Adjust to align with icon */
+    background-color: #dbdbdb;
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 400px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.popup p {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.profile-icon {
+    cursor: pointer;
+    height: 40px;
+    width: 55px;
 }

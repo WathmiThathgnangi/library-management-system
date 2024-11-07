@@ -2,6 +2,7 @@ from flask import Flask,render_template, request, redirect, url_for, session, se
 from flask_mysqldb import MySQL
 import mysql.connector
 import io
+import time
 
 app=Flask(__name__)
 app.secret_key = 'your_secret_key_here'
@@ -21,11 +22,27 @@ conn = mysql.connector.connect(
 @app.route('/')
 def home():
     if 'email' in session:
-        return render_template('home.html', email=session['email'])
+        email = session['email']
+        user_info = None
+
+        cursor = conn.cursor()
+        cursor.execute("SELECT username, email, telephone, dob FROM users WHERE email = %s", (email,))
+        result = cursor.fetchone()
+        cursor.close()
+
+        # Convert result tuple to dictionary if user info is found
+        if result:
+            user_info = {
+                'username': result[0],
+                'email': result[1],
+                'telephone': result[2],
+                'dob': result[3]
+            }
+
+        return render_template('home.html', user_info=user_info, email=session['email'])
     else:
         return render_template('login.html')
 
-# Route for the library page
 @app.route('/library')
 def library():
     cursor = conn.cursor(dictionary=True)
@@ -37,21 +54,28 @@ def library():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        username = request.form['username']
         email = request.form['email']
+        telephone = request.form['phone']
+        dob = request.form['dob']
         pwd = request.form['password']
         cpwd = request.form['confirm-password']
         
         if pwd != cpwd:
-            return render_template('register.html')
+            return render_template('register.html', error="Passwords do not match.")
         
         cursor = conn.cursor()
         try:
-            cursor.execute("INSERT INTO users (email, password) VALUES (%s, %s)", (email, pwd))
+            cursor.execute("""
+                INSERT INTO users (username, email, telephone, password, dob) 
+                VALUES (%s, %s, %s, %s, %s)
+            """, (username, email, telephone, pwd, dob))
             conn.commit()
         except Exception as e:
             conn.rollback()
-            return render_template('register.html')           
-        cursor.close()
+            return render_template('register.html', error="Registration failed.")
+        finally:
+            cursor.close()
 
         return redirect(url_for('login'))
         
@@ -86,27 +110,34 @@ def logout():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if 'pdf_file' not in request.files:
+    if 'pdf_file' not in request.files or 'cover_photo' not in request.files:
         return redirect(url_for('library'))
 
-    file = request.files['pdf_file']
-    if file.filename == '':
+    pdf_file = request.files['pdf_file']
+    cover_photo = request.files['cover_photo']
+
+    if pdf_file.filename == '' or cover_photo.filename == '':
         return redirect(url_for('library'))
 
-    # Validate file type
-    if not file.filename.lower().endswith('.pdf'):
+    # Validate PDF file type
+    if not pdf_file.filename.lower().endswith('.pdf'):
         return "Only PDF files are allowed", 400
 
-    # Read the file in binary
-    file_data = file.read()
+    # Validate cover photo file type
+    if not (cover_photo.filename.lower().endswith('.png') or cover_photo.filename.lower().endswith('.jpg')):
+        return "Only PNG and JPG files are allowed for the cover photo", 400
 
-    # Log file size for debugging
-    print(f"Uploading file: {file.filename}, Size: {len(file_data)} bytes")
+    # Read the files in binary
+    pdf_data = pdf_file.read()
+    cover_data = cover_photo.read()
 
     cursor = conn.cursor()
     try:
-        # Insert the file into the BLOB column
-        cursor.execute("INSERT INTO documents (filename, file) VALUES (%s, %s)", (file.filename, file_data))
+        # Insert the files into the respective BLOB columns
+        cursor.execute(
+            "INSERT INTO documents (filename, file, coverphoto) VALUES (%s, %s, %s)",
+            (pdf_file.filename, pdf_data, cover_data)
+        )
         conn.commit()
     except Exception as e:
         conn.rollback()
@@ -133,6 +164,29 @@ def download_file(file_id):
                              as_attachment=True,
                              mimetype='application/pdf')
     return "File not found", 404
+
+@app.route('/cover/<int:file_id>')
+def cover_photo(file_id):
+    try:
+        cursor = conn.cursor(dictionary=True)
+        
+        cursor.execute("SELECT coverphoto FROM documents WHERE id = %s", (file_id,))
+        cover = cursor.fetchone()
+        
+        cursor.close()
+
+        if cover and cover['coverphoto'] is not None:
+            return send_file(io.BytesIO(cover['coverphoto']), mimetype='image/jpeg')
+        return "Cover photo not found", 404
+
+    except Exception as e:
+        print(f"Database error: {e}")
+        cover_photo(file_id)
+        return "An error occurred with the database connection", 500
+
+def is_valid_pdf(file_data):
+    # Basic check for PDF header
+    return file_data.startswith(b'%PDF')
 
 if __name__ == '__main__':
     app.run(debug=True)

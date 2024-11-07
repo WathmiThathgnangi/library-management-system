@@ -19,6 +19,19 @@
                     <li><a href="{{url_for('home')}}">Home</a></li>
                     <li><a href="{{url_for('library')}}">Library</a></li>
                     <li><a href="{{url_for('logout')}}">Log Out</a></li>
+                    <li>
+                        <img src="../static/images/profile.png" alt="Profile Icon" class="profile-icon" onclick="togglePopup()">
+                        <div id="profilePopup" class="popup">
+                            {% if user_info %}
+                                <p><strong>Username:</strong> {{ user_info.username }}</p>
+                                <p><strong>Email:</strong> {{ user_info.email }}</p>
+                                <p><strong>Date of Birth:</strong> {{ user_info.dob }}</p>
+                                <p><strong>Telephone:</strong> {{ user_info.telephone }}</p>
+                            {% else %}
+                                <p>Profile information unavailable.</p>
+                            {% endif %}
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -39,15 +52,20 @@
             <h2>Upload Your Books</h2>
             <p>Share your knowledge with others by uploading your favorite books in PDF format. This feature allows you to manage your library and make resources available to fellow readers.</p>
             <p>Please ensure that your documents are in PDF format and follow our content guidelines. Your contributions will help enrich our digital library.</p>
-
             <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" class="upload-form">
                 <label for="file-upload" id="file-upload-label" class="custom-file-upload">
                     Choose Document
                 </label>
                 <input type="file" id="file-upload" name="pdf_file" accept="application/pdf" onchange="showFileName()" />
+            
+                <label for="cover-upload" id="cover-upload-label" class="custom-file-upload">
+                    Choose Cover Photo
+                </label>
+                <input type="file" id="cover-upload" name="cover_photo" accept=".png, .jpg, .jpeg" onchange="coverFileName()" />
+            
                 <input type="submit" value="Upload Book" class="btn-upload">
             </form>
-
+            
             <div class="upload-tips">
                 <h3>Tips for Uploading</h3>
                 <ul>
@@ -73,5 +91,25 @@
         var label = document.getElementById('file-upload-label');
         label.innerHTML = input.files[0].name; // Update label with selected file name
     }
+
+    function coverFileName() {
+        var input = document.getElementById('cover-upload');
+        var label = document.getElementById('cover-upload-label');
+        label.innerHTML = input.files[0].name; // Update label with selected file name
+    }
+
+    function togglePopup() {
+        var popup = document.getElementById("profilePopup");
+        popup.style.display = popup.style.display === "none" || popup.style.display === "" ? "block" : "none";
+    }
+
+    // Optional: close the popup if clicked outside
+    window.addEventListener("click", function(event) {
+        var popup = document.getElementById("profilePopup");
+        var icon = document.querySelector(".profile-icon");
+        if (!popup.contains(event.target) && event.target !== icon) {
+            popup.style.display = "none";
+        }
+    });
 </script>
 </html>

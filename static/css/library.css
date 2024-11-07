@@ -84,6 +84,7 @@ header nav ul li a:hover {
 
 .file-item {
     background-color: #f9f9f9;
+    max-height: 500px;
     padding: 20px;
     margin-bottom: 15px;
     border-radius: 8px;
@@ -103,9 +104,9 @@ header nav ul li a:hover {
 .file-link {
     text-decoration: none;
     color: #008CBA;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
-    display: flex;
+    display:list-item;
     align-items: center;
 }
 
@@ -151,4 +152,11 @@ footer {
     line-height: 1.6;
     max-width: 700px;
     margin: 0 auto;
+}
+
+.cover-photo {
+    max-width: 400px; 
+    height: auto;
+    display: block; 
+    margin-bottom: 8px;
 }
